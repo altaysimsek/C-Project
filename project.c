@@ -93,9 +93,7 @@ int main(){
 		}else if (menuSelection == 2){
 			cleanConsole();
 			skorSayisi = readHighScores();
-			printf("%d\n",skorSayisi);
 			bubbleSort(skorSayisi);
-			printf("%d\n",skorSayisi);
 			printf(MAG"################################- En Yuksek Skorlar -####################################\n"reset);
 			printf(YEL"\t\t\t\t1.%d puan ile %s\n\n"reset,highScore[skorSayisi-1].puan,highScore[skorSayisi-1].userName);
 			printf(CYN"\t\t2.%d puan ile %s\n\n"reset,highScore[skorSayisi-2].puan,highScore[skorSayisi-2].userName);
@@ -269,106 +267,124 @@ int soruBul(int id,int soruSayisi){
 }
 void startGame(int soruSayisi,char kullaniciAdi[]){
 	int score = 0;
-	
+	int sayilar[5]={0};
+	srand(time(NULL));
+	int rastgeleIndis;
+	rastgeleIndis = 1+(rand() % (soruSayisi-1));
 	int i = 1;
+	cleanConsole();
 	for (i = 1; i<=sorulacakSoru;i++){
 		char cevap;
 		cleanConsole();
+		printf(CYN"Soru getiriliyor."reset);
+		sleep(1);
+		int ctLoop = 0;
+		for(ctLoop = 0;ctLoop <= 4;ctLoop++){
+			if (rastgeleIndis == sayilar[ctLoop]){
+				srand(time(NULL));
+				rastgeleIndis = 1+(rand()%(soruSayisi-1));
+				ctLoop = -1;
+				printf(CYN"."reset);
+				
+			}else{
+				continue;
+			}
+		}
+		sayilar[i-1] = rastgeleIndis;
+		cleanConsole();
 		printf(CYN"################################- 2019-2020 -##############################################\n"reset);
 		printf("\t\t\t\t[%d / 5]\n",i);
-		printf("\t\t\tSorunuz : %s\n",sorular[i].desc);
-		printf("\t\tA ) %s\tB ) %s\tC ) %s\tD ) %s\n",sorular[i].optA,sorular[i].optB,sorular[i].optC,sorular[i].optD);
+		printf("\t\t\tSorunuz : %s\n",sorular[rastgeleIndis].desc);
+		printf("\t\tA ) %s\tB ) %s\tC ) %s\tD ) %s\n",sorular[rastgeleIndis].optA,sorular[rastgeleIndis].optB,sorular[rastgeleIndis].optC,sorular[rastgeleIndis].optD);
 		printf(CYN"################################- 2019-2020 -##############################################"reset);
 		printf(RED"\nUyari : Kucuk buyuk harf duyarlidir.\n"reset);
 		printf("\nCevabiniz : ");
 		time_t startClock = time(NULL);
 		getchar();
 		scanf("%c",&cevap);
+		time_t endClock = time(NULL);
+		int gecenZ = difftime(endClock,startClock);
 		if(cevap == 'A'){
-			if(!strcmp(sorular[i].optA,sorular[i].rOpt)){
+			if(!strcmp(sorular[rastgeleIndis].optA,sorular[rastgeleIndis].rOpt)){
 				score += 100;
-				time_t endClock = time(NULL);
-				int gecenZ = difftime(startClock,endClock);
-				if(gecenZ>10){
+				
+				if(gecenZ>3){
 					
 				}else{
 					score+=((10-gecenZ)*100);
 					
 				}
-				printf(GRN"\nDogru cevap %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				
 				
 				continue;
 			}else{
-				printf(GRN"\nDogru cevap -> %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap -> %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 				
 			}
 		}else if (cevap == 'B'){
-			if(!strcmp(sorular[i].optB,sorular[i].rOpt)){
+			if(!strcmp(sorular[rastgeleIndis].optB,sorular[rastgeleIndis].rOpt)){
 				score += 100;
-				time_t endClock = time(NULL);
-				int gecenZ = difftime(startClock,endClock);
-				if(gecenZ>10){
+				
+				if(gecenZ>3){
 					
 				}else{
 					score+=((10-gecenZ)*100);
 					
 				}
-				printf(GRN"\nDogru cevap %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 			}else{
-				printf(GRN"\nDogru cevap -> %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap -> %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 				
 			}
 		}else if (cevap == 'C'){
-			if(!strcmp(sorular[i].optC,sorular[i].rOpt)){
+			if(!strcmp(sorular[rastgeleIndis].optC,sorular[rastgeleIndis].rOpt)){
 				score += 100;
-				time_t endClock = time(NULL);
-				int gecenZ = difftime(startClock,endClock);
-				if(gecenZ>10){
+				
+				if(gecenZ>3){
 					
 				}else{
 					score+=((10-gecenZ)*100);
 					
 				}
-				printf(GRN"\nDogru cevap %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 			}else{
-				printf(GRN"\nDogru cevap -> %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap -> %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 			}
 		}else if(cevap == 'D'){
-			if(!strcmp(sorular[i].optD,sorular[i].rOpt)){
+			if(!strcmp(sorular[rastgeleIndis].optD,sorular[rastgeleIndis].rOpt)){
 				score += 100;
-				time_t endClock = time(NULL);
-				int gecenZ = difftime(startClock,endClock);
-				if(gecenZ>10){
+				
+				if(gecenZ>3){
 					
 				}else{
 					score+=((10-gecenZ)*100);
 					
 				}
-				printf(GRN"\nDogru cevap -> %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap -> %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 			}else{
-				printf(GRN"\nDogru cevap -> %s"reset,sorular[i].rOpt);
-				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[i].rOpt);
+				printf(GRN"\nDogru cevap -> %s"reset,sorular[rastgeleIndis].rOpt);
+				printf(GRN"\nYeni soru icin herhangi bir tusa basin."reset,sorular[rastgeleIndis].rOpt);
 				getch();
 				continue;
 			}
