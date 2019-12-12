@@ -87,8 +87,15 @@ int main(){
 			printf("=-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-==-=-=-=\n");
 			printf(YEL"\t\t\t\tBir ad giriniz : "reset);
 			scanf("%s",kullaniciAdi);
-			cleanConsole;
-			startGame(soruSayisi,kullaniciAdi);
+			cleanConsole();
+			if(soruSayisi >5){
+				startGame(soruSayisi,kullaniciAdi);	
+			}else{
+				cleanConsole();
+				printf("Yeterli sayida soru yok.");
+				getch();
+			}
+			
 			//
 		}else if (menuSelection == 2){
 			cleanConsole();
@@ -283,13 +290,12 @@ void startGame(int soruSayisi,char kullaniciAdi[]){
 			if (rastgeleIndis == sayilar[ctLoop]){
 				srand(time(NULL));
 				rastgeleIndis = 1+(rand()%(soruSayisi-1));
-				ctLoop = -1;
-				printf(CYN"."reset);
-				
+				ctLoop = -1;				
 			}else{
 				continue;
 			}
 		}
+		printf(CYN"."reset);
 		sayilar[i-1] = rastgeleIndis;
 		cleanConsole();
 		printf(CYN"################################- 2019-2020 -##############################################\n"reset);
@@ -455,7 +461,7 @@ void updateSoru(int index,int soruSayisi,int temp){
 	getchar();
 	printf("\nEski Deger -> %s | Yeni Sorunuz : ",sorular[index].desc);
 	gets(soruEkle.desc);
-	fprintf(file,"%d\t%s\t%s\t%s\t%s\t%s\t%s\t",soruEkle.id,soruEkle.optA,soruEkle.optB,soruEkle.optC,soruEkle.optD,soruEkle.rOpt,soruEkle.desc);
+	fprintf(file,"\n%d\t%s\t%s\t%s\t%s\t%s\t%s\t",soruEkle.id,soruEkle.optA,soruEkle.optB,soruEkle.optC,soruEkle.optD,soruEkle.rOpt,soruEkle.desc);
 	printf(RED"################################- 2019-2020 -##############################################\n"reset);
 	printf("-Sorunuz basari ile guncellendi...\n");
 	fclose(file);
